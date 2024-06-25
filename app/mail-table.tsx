@@ -12,7 +12,6 @@ import { Button } from '@/components/ui/button';
 import { SelectMail } from '@/lib/db';
 // import { deleteUser } from './actions';
 import { useRouter } from 'next/navigation';
-import { format } from 'date-fns';
 
 export function MailTable({
   mails,
