@@ -27,8 +27,6 @@ export function MailTable({
     router.replace(`/?offset=${offset}`);
   }
 
-  console.log(mails)
-
   return (
     <>
       <form className="border shadow-sm rounded-lg">

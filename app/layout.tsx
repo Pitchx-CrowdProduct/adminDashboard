@@ -3,7 +3,7 @@ import './globals.css';
 import Link from 'next/link';
 import { Analytics } from '@vercel/analytics/react';
 import { Logo, SettingsIcon, UsersIcon, VercelLogo } from '@/components/icons';
-import { User } from './user';
+// import { User } from './user';
 import { NavItem } from './nav-item';
 import { IoMailOutline } from "react-icons/io5";
 
@@ -60,7 +60,7 @@ export default function RootLayout({
                 <Logo />
                 <span className="">ACME</span>
               </Link>
-              <User />
+              {/* <User /> */}
             </header>
             {children}
           </div>

@@ -26,8 +26,6 @@ export function UsersTable({
     router.replace(`/?offset=${offset}`);
   }
 
-  console.log(users)
-
   return (
     <>
       <form className="border shadow-sm rounded-lg">
