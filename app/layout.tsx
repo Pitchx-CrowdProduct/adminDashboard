@@ -6,6 +6,7 @@ import { Logo, SettingsIcon, UsersIcon, VercelLogo } from '@/components/icons';
 // import { User } from './user';
 import { NavItem } from './nav-item';
 import { IoMailOutline } from "react-icons/io5";
+import { CgFileDocument } from "react-icons/cg";
 
 export const metadata = {
   title: 'PitchX | Admin',
@@ -43,6 +44,10 @@ export default function RootLayout({
                   <IoMailOutline className='h-4 w-4'/>
                     Early Access User Mails
                   </NavItem>
+                  <NavItem href="/investor">
+                  <CgFileDocument className='h-4 w-4'/>
+                    Investor's pitch decks
+                  </NavItem>
                   {/* <NavItem href="https://vercel.com/templates/next.js/admin-dashboard-tailwind-postgres-react-nextjs">
                     <VercelLogo className="h-4 w-4" />
                     Deploy
@@ -57,8 +62,8 @@ export default function RootLayout({
                 className="flex items-center gap-2 font-semibold lg:hidden"
                 href="/"
               >
-                <Logo />
-                <span className="">ACME</span>
+                {/* <Logo /> */}
+                <span className="">Pitch<span className='text-blue-500'>X</span></span>
               </Link>
               {/* <User /> */}
             </header>

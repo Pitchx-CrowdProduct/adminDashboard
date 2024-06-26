@@ -9,7 +9,7 @@ import {
   Table
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { SelectMail } from '@/lib/db';
+import { SelectMail } from '../models/mail';
 // import { deleteUser } from './actions';
 import { useRouter } from 'next/navigation';
 
@@ -65,7 +65,7 @@ function MailRow({ mail }: { mail: SelectMail }) {
     <TableRow>
       <TableCell className="hidden md:table-cell">{mail.email}</TableCell>
       <TableCell suppressHydrationWarning>{mail.updatedAt.toLocaleString()}</TableCell>
-      <TableCell>
+      {/* <TableCell>
         <Button
           className="w-full"
           size="sm"
@@ -75,7 +75,7 @@ function MailRow({ mail }: { mail: SelectMail }) {
         >
           Delete
         </Button>
-      </TableCell>
+      </TableCell> */}
     </TableRow>
   );
 }

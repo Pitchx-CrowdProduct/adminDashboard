@@ -1,4 +1,7 @@
 import mongoose from 'mongoose';
+import { ReviewDetails,SelectUser } from 'models/reviewDetails';
+import {mailModel , SelectMail} from 'models/mail'
+import { IUser,investorModal } from 'models/investor';
 
 const mongoUri = process.env.MONGO_URI;
 
@@ -9,24 +12,6 @@ if (!mongoUri) {
 mongoose.connect(mongoUri).then(() => {
   console.log("Successfully connected to MongoDB."); // Print message upon successful connection
 });
-
-const detailsSchema = new mongoose.Schema({
-  username: { type: String, required: true, maxlength: 100 },
-  email: { type: String, required: true, maxlength: 100 },
-  filename: { type: String, required: true, maxlength: 100 },
-  fileurl: { type: String, required: true, maxlength: 100 },
-  uploadDate: { type: Date, required: true }
-});
-
-const ReviewDetails = mongoose.models.ReviewDetails || mongoose.model('ReviewDetails', detailsSchema);
-
-export type SelectUser = mongoose.Document & {
-  username: string;
-  email: string;
-  filename: string;
-  fileurl: string;
-  uploadDate: Date;
-};
 
 export async function getUsers(
   search: string,
@@ -54,17 +39,6 @@ export async function deleteUserById(id: string) { // Note: Mongoose IDs are str
   await ReviewDetails.findByIdAndDelete(id).exec();
 }
 
-const mailsSchema = new mongoose.Schema({
-  email: { type: String, required: true, maxlength: 100 },
-  updatedAt: { type: Date, required: true }
-});
-
-const mailModel = mongoose.models.emails || mongoose.model('emails', mailsSchema);
-
-export type SelectMail = mongoose.Document & {
-  email: string;
-  updatedAt: Date;
-};
 
 export async function getMails(
   search: string,
@@ -92,3 +66,46 @@ export async function getMails(
 export async function deleteMailById(id: string) { // Note: Mongoose IDs are strings
   await mailModel.findByIdAndDelete(id).exec();
 }
+
+
+
+
+export async function fetchAllUsers(): Promise<{investors : IUser[]}> {
+  // Fetch all records
+  const investors = await investorModal.find({});
+  return { investors } as { investors: IUser[] };
+}
+
+
+
+
+
+
+
+// interface IFile extends Document {
+//   name: string;
+//   uploadDate: Date;
+//   category: string;
+//   locatedAt: string;
+//   s3Url: string;
+// }
+
+// interface IUser extends Document {
+//   email: string;
+//   files: IFile[];
+// }
+
+// const FileSchema = new mongoose.Schema<IFile>({
+//   name: { type: String, required: true },
+//   uploadDate: { type: Date, required: true },
+//   category: { type: String, required: true },
+//   locatedAt: { type: String, required: true },
+//   s3Url: { type: String, required: true },
+// });
+
+// const UserSchema = new mongoose.Schema<IUser>({
+//   email: { type: String, required: true },
+//   files: { type: [FileSchema], required: true },
+// });
+
+// const User = mongoose.model<IUser>('User', UserSchema);
