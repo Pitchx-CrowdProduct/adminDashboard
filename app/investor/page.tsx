@@ -55,7 +55,7 @@ export default async function earlyAccessPage({
                                 <TableBody>
                                     {investor.files.map((file) => (
                                         <TableRow>
-                                            <TableCell className="hidden md:table-cell">{file.name ? file.fileName.split('-')[1].split('.')[0] : "N/A"}</TableCell>
+                                            <TableCell className="hidden md:table-cell">{file.name ? file.name : file.fileName ? file.fileName?.split('-')[1].split('.')[0] : "N/A"}</TableCell>
                                             <TableCell >{file.category ? file.category : "N/A"}</TableCell>
                                             <TableCell >{file.locatedAt ? file.locatedAt : "N/A"}</TableCell>
                                             <TableCell >
