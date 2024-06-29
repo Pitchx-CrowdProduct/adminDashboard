@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { SelectUser } from '../models/reviewDetails';
 import { deleteUser } from './actions';
 import { useRouter } from 'next/navigation';
+// import moment from 'moment';
 
 export function UsersTable({
   users,
@@ -25,6 +26,9 @@ export function UsersTable({
   function onClick() {
     router.replace(`/?offset=${offset}`);
   }
+
+  // Use moment.js to display relative time
+  // const relativeTime = moment(user.uploadDate).fromNow();
 
   return (
     <>
@@ -68,7 +72,7 @@ function UserRow({ user }: { user: SelectUser }) {
     <TableRow>
       <TableCell className="font-medium w-40">{user.username}</TableCell>
       <TableCell className="hidden md:table-cell">{user.email}</TableCell>
-      <TableCell>{user.filename.split('.')[0]}</TableCell>
+      <TableCell className='max-w-48'>{user.filename.split('.')[0]}</TableCell>
       <TableCell>
         {/* Make fileurl clickable */}
         <a
@@ -76,10 +80,14 @@ function UserRow({ user }: { user: SelectUser }) {
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-500 underline cursor-pointer"
+          title={user.fileurl}
         >
-          {user.fileurl}
+          {/* {user.fileurl} */}
+          {/* {user.fileurl.slice(0, 15)}...{user.fileurl.slice(-15)} */}
+          Click here to view file
         </a>
       </TableCell>
+      {/* <TableCell >{moment(user.uploadDate).fromNow()}</TableCell> */}
       <TableCell suppressHydrationWarning>{user.uploadDate.toLocaleString()}</TableCell>
       {/* <TableCell>
         <Button
