@@ -33,7 +33,6 @@ export default async function IndexPage({
       <div className="w-full mb-4">
         <Search value={searchParams.q} />
       </div>
-      {/* <UsersTable users={users} offset={newOffset} /> */}
       <Accordion type='single' collapsible>
         {users.map((user) => (
           <AccordionItem key={user.email} value={user.email}>
@@ -72,6 +71,7 @@ export default async function IndexPage({
           </AccordionItem>
         ))}
       </Accordion>
+<!--       <UsersTable users={users} prevoffset={Number(offset)} offset={newOffset} /> -->
     </main>
   );
 }
