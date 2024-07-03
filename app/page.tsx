@@ -71,7 +71,7 @@ export default async function IndexPage({
           </AccordionItem>
         ))}
       </Accordion>
-<!--       <UsersTable users={users} prevoffset={Number(offset)} offset={newOffset} /> -->
+{/* <UsersTable users={users} prevoffset={Number(offset)} offset={newOffset} /> */}
     </main>
   );
 }

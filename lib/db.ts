@@ -26,8 +26,6 @@ export async function getUsers(
     return { users, newOffset: null };
   }
 
-  console.log("db",offset);
-
   if (offset === null) {
     return { users: [], newOffset: null };
   }
