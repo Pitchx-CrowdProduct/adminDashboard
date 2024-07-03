@@ -19,7 +19,7 @@ export default async function IndexPage({
       <div className="w-full mb-4">
         <Search value={searchParams.q} />
       </div>
-      <UsersTable users={users} offset={newOffset} />
+      <UsersTable users={users} prevoffset={Number(offset)} offset={newOffset} />
     </main>
   );
 }
