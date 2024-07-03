@@ -63,7 +63,7 @@ const fileDetailSchema = new Schema<IFileDetail>({
   }
 });
 
-export const reviewFileDetail =  mongoose.models.reviwDetail || mongoose.model<IFileDetail>('reviwDetail', fileDetailSchema);
+export const reviewFileDetail =  mongoose.models.reviewdetails || mongoose.model<IFileDetail>('reviewdetails', fileDetailSchema);
 
 export type SelectUser = mongoose.Document & {
   username: string;
