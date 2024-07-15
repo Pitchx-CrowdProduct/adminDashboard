@@ -11,7 +11,7 @@ interface IFile {
 
 // Define the FileDetails interface
 interface IFileDetails {
-  score: number;
+  score: string;
   strengths: string[];
   feedbacks: string[];
 }
@@ -55,7 +55,7 @@ const fileDetailSchema = new Schema<IFileDetail>({
         trim: true
       },
       fileDetails: {
-        score: { type: Number, required: true },
+        score: { type: String, required: true },
         strengths: { type: [String], required: true },
         feedbacks: { type: [String], required: true }
       },

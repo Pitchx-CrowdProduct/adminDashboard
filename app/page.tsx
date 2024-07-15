@@ -34,6 +34,8 @@ export default async function IndexPage({
   const offset = searchParams.offset ?? 0;
   const { users, newOffset } = await getUsers(search, Number(offset));
 
+  
+
   return (
     <main className="flex flex-1 flex-col p-4 md:p-6">
       <div className="flex items-center mb-8">
@@ -90,7 +92,7 @@ export default async function IndexPage({
                               </DialogDescription>
                             </DialogHeader>
                             <div className="grid gap-4 py-4">
-                              <p className='font-bold text-xl'>Score: {file.fileDetails.score}</p>
+                              <p className='font-bold text-xl'>Score: {file.fileDetails?.score}</p> 
                               <div>
                                 <p className="font-semibold text-lg">Strengths:</p>
                                 <ul className="list-decimal pl-5">
