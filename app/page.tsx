@@ -15,6 +15,37 @@ import {
   TableBody,
   Table
 } from '@/components/ui/table';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+
+// Define the types for the file details
+interface FileDetails {
+  score: number;
+  strengths: string[];
+  feedbacks: string[];
+}
+
+// Define the type for each file
+interface File {
+  filename: string;
+  fileUrl: string;
+  uploadDate: Date;
+  fileDetails: FileDetails;
+}
+
+// Define the type for each user
+interface User {
+  email: string;
+  username: string;
+  files: File[];
+}
 
 export default async function IndexPage({
   searchParams
@@ -38,8 +69,8 @@ export default async function IndexPage({
           <AccordionItem key={user.email} value={user.email}>
             <AccordionTrigger>
               <div className='w-full flex flex-row justify-between'>
-               <div> {user.username}</div> 
-               <div> {user.email}</div> 
+                <div> {user.username}</div>
+                <div> {user.email}</div>
               </div>
             </AccordionTrigger>
             <AccordionContent>
@@ -49,6 +80,7 @@ export default async function IndexPage({
                     <TableHead className="hidden md:table-cell">name</TableHead>
                     <TableHead className="hidden md:table-cell">file</TableHead>
                     <TableHead className="hidden md:table-cell">uploadDateTime</TableHead>
+                    <TableHead className="hidden md:table-cell">details</TableHead>
                     <TableHead></TableHead>
                   </TableRow>
                 </TableHeader>
@@ -62,6 +94,46 @@ export default async function IndexPage({
                           rel="noopener noreferrer" className='text-blue-500 underline cursor-pointer'>Click here to view file</a>
                       </TableCell>
                       <TableCell suppressHydrationWarning>{file.uploadDate?.toLocaleString()}</TableCell>
+                      <TableCell suppressHydrationWarning>
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            {/* <Button variant="outline">Edit Profile</Button> */}
+                            <button
+                              className="mt-2 p-2 w-44 bg-[#f1f6f9] rounded-md hover:bg-gray-200"
+                            >
+                              Click here to view details
+                            </button>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-[1000px]">
+                            <DialogHeader>
+                              <DialogTitle>{file.filename}</DialogTitle>
+                              <DialogDescription>
+                                Below are the file details --
+                              </DialogDescription>
+                            </DialogHeader>
+                            <div className="grid gap-4 py-4">
+                              <p className='font-bold text-xl'>Score: {file.fileDetails.score}</p>
+                              <div>
+                                <p className="font-semibold text-lg">Strengths:</p>
+                                <ul className="list-decimal pl-5">
+                                  {file.fileDetails.strengths.map((strength, index) => (
+                                    <li key={index}>{strength}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                              <div>
+                                <p className="font-semibold text-lg">Areas of Improvement:</p>
+                                <ul className="list-decimal pl-5">
+                                  {file.fileDetails.feedbacks.map((feedback, index) => (
+                                    <li key={index}>{feedback}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </div>
+                          </DialogContent>
+                        </Dialog>
+
+                      </TableCell>
                     </TableRow>
                   ))}
 
@@ -71,7 +143,7 @@ export default async function IndexPage({
           </AccordionItem>
         ))}
       </Accordion>
-{/* <UsersTable users={users} prevoffset={Number(offset)} offset={newOffset} /> */}
+      {/* <UsersTable users={users} prevoffset={Number(offset)} offset={newOffset} /> */}
     </main>
   );
 }

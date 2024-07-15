@@ -5,8 +5,15 @@ interface IFile {
   filename: string;
   filehash:string;
   fileUrl: string;
-  fileDetails:JSON;
+  fileDetails:IFileDetails;
   uploadDate: Date;
+}
+
+// Define the FileDetails interface
+interface IFileDetails {
+  score: number;
+  strengths: string[];
+  feedbacks: string[];
 }
 
 interface IFileDetail extends Document {
@@ -48,8 +55,9 @@ const fileDetailSchema = new Schema<IFileDetail>({
         trim: true
       },
       fileDetails: {
-        type: Schema.Types.Mixed,
-        required: true
+        score: { type: Number, required: true },
+        strengths: { type: [String], required: true },
+        feedbacks: { type: [String], required: true }
       },
       uploadDate: {
         type: Date,
