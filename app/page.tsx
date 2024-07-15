@@ -25,28 +25,6 @@ import {
 } from "@/components/ui/dialog";
 
 
-// Define the types for the file details
-interface FileDetails {
-  score: number;
-  strengths: string[];
-  feedbacks: string[];
-}
-
-// Define the type for each file
-interface File {
-  filename: string;
-  fileUrl: string;
-  uploadDate: Date;
-  fileDetails: FileDetails;
-}
-
-// Define the type for each user
-interface User {
-  email: string;
-  username: string;
-  files: File[];
-}
-
 export default async function IndexPage({
   searchParams
 }: {
