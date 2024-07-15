@@ -84,7 +84,7 @@ export default async function IndexPage({
                               Click here to view details
                             </button>
                           </DialogTrigger>
-                          <DialogContent className="sm:max-w-[1000px]">
+                          <DialogContent className="sm:max-w-[1000px] max-h-[80vh] overflow-y-auto">
                             <DialogHeader>
                               <DialogTitle>{file.filename}</DialogTitle>
                               <DialogDescription>
