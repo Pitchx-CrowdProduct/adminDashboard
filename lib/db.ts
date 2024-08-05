@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { reviewFileDetail , SelectUser } from 'models/reviewFileDetail';
+import users,{ SelectUser } from 'models/user';
 import {mailModel , SelectMail} from 'models/mail'
 import { IUser,investorModal } from 'models/investor';
 
@@ -17,28 +17,27 @@ export async function getUsers(
   search: string,
   offset: number
 ): Promise<{
-  users: SelectUser[];
+  users: SelectUser[] | null;
   newOffset: number | null;
 }> {
   // Always search the full collection, not per page
   if (search) {
-    const users = await reviewFileDetail.find({ username: new RegExp(search, 'i') }).limit(1000).exec();
-    return { users, newOffset: null };
+    const user = await users.find({ username: new RegExp(search, 'i') }).limit(1000).exec();
+    return { users: user, newOffset: null };
   }
 
   if (offset === null) {
     return { users: [], newOffset: null };
   }
 
-  const moreUsers = await reviewFileDetail.find().skip(offset).limit(20).exec();
+  const moreUsers = await users.find().skip(offset).limit(20).exec();
   const newOffset = moreUsers.length >= 20 ? offset + 20 : null;
   return { users: moreUsers, newOffset };
 }
 
 export async function deleteUserById(id: string) { // Note: Mongoose IDs are strings
-  await reviewFileDetail.findByIdAndDelete(id).exec();
+  await users.findByIdAndDelete(id).exec();
 }
-
 
 export async function getMails(
   search: string,
