@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import users,{ SelectUser } from 'models/user';
-import {mailModel , SelectMail} from 'models/mail'
-import { IUser,investorModal } from 'models/investor';
+import users, { SelectUser } from 'models/user';
+import { mailModel, SelectMail } from 'models/mail';
+import { IUser, investorModal } from 'models/investor';
 
 const mongoUri = process.env.MONGO_URI;
 
@@ -10,7 +10,7 @@ if (!mongoUri) {
 }
 
 mongoose.connect(mongoUri).then(() => {
-  console.log("Successfully connected to MongoDB."); // Print message upon successful connection
+  console.log('Successfully connected to MongoDB.'); // Print message upon successful connection
 });
 
 export async function getUsers(
@@ -22,7 +22,10 @@ export async function getUsers(
 }> {
   // Always search the full collection, not per page
   if (search) {
-    const user = await users.find({ username: new RegExp(search, 'i') }).limit(1000).exec();
+    const user = await users
+      .find({ username: new RegExp(search, 'i') })
+      .limit(1000)
+      .exec();
     return { users: user, newOffset: null };
   }
 
@@ -35,7 +38,8 @@ export async function getUsers(
   return { users: moreUsers, newOffset };
 }
 
-export async function deleteUserById(id: string) { // Note: Mongoose IDs are strings
+export async function deleteUserById(id: string) {
+  // Note: Mongoose IDs are strings
   await users.findByIdAndDelete(id).exec();
 }
 
@@ -48,7 +52,10 @@ export async function getMails(
 }> {
   // Always search the full collection, not per page
   if (search) {
-    const mails = await mailModel.find({ username: new RegExp(search, 'i') }).limit(1000).exec();
+    const mails = await mailModel
+      .find({ username: new RegExp(search, 'i') })
+      .limit(1000)
+      .exec();
     return { mails, newOffset: null };
   }
 
@@ -61,25 +68,16 @@ export async function getMails(
   return { mails: moreMails, newOffset };
 }
 
-
-export async function deleteMailById(id: string) { // Note: Mongoose IDs are strings
+export async function deleteMailById(id: string) {
+  // Note: Mongoose IDs are strings
   await mailModel.findByIdAndDelete(id).exec();
 }
 
-
-
-
-export async function fetchAllUsers(): Promise<{investors : IUser[]}> {
+export async function fetchAllUsers(): Promise<{ investors: IUser[] }> {
   // Fetch all records
   const investors = await investorModal.find({});
   return { investors } as { investors: IUser[] };
 }
-
-
-
-
-
-
 
 // interface IFile extends Document {
 //   name: string;

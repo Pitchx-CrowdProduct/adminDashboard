@@ -1,21 +1,23 @@
-// pages/api/updateUserStatus.ts
-import { NextApiRequest, NextApiResponse } from 'next';
-import users  from '../../../models/user';
+import { NextRequest, NextResponse } from 'next/server';
+import users from '../../../models/user'
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'PATCH') {
-    const { id, status } = req.body;
+export async function PATCH(request: NextRequest) {
+  try {
+    const { email, status } = await request.json();
 
-    try {
-      const updatedUser = await users.findByIdAndUpdate(id, { status }, { new: true });
-      if (!updatedUser) {
-        return res.status(404).json({ message: 'User not found' });
-      }
-      res.status(200).json(updatedUser);
-    } catch (error) {
-      res.status(500).json({ message: 'Error updating user status', error });
+    if (!email || !status) {
+      return NextResponse.json({ message: 'Missing email or status' }, { status: 400 });
     }
-  } else {
-    res.status(405).json({ message: 'Method not allowed' });
+
+    const updatedUser = await users.findOneAndUpdate({ email }, { status }, { new: true });
+
+    if (!updatedUser) {
+      return NextResponse.json({ message: 'User not found' }, { status: 404 });
+    }
+
+    return NextResponse.json(updatedUser, { status: 200 });
+  } catch (error) {
+    console.error('Error updating user status:', error);
+    return NextResponse.json({ message: 'Error updating user status' }, { status: 500 });
   }
 }
