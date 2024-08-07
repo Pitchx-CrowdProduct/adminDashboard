@@ -45,7 +45,7 @@ export default async function IndexPage({
         <Search value={searchParams.q} />
       </div>
       <Accordion type='single' collapsible>
-        {users.map((user) => (
+        {users?.map((user) => (
           <AccordionItem key={user.email} value={user.email}>
             <AccordionTrigger>
               <div className='w-full flex flex-row justify-between'>
@@ -65,11 +65,11 @@ export default async function IndexPage({
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {user.files.map((file) => (
+                  {user.reviewFiles.map((file) => (
                     <TableRow>
                       <TableCell className="hidden md:table-cell">{file.filename}</TableCell>
                       <TableCell >
-                        <a href={file.fileUrl}
+                        <a href={file.fileurl}
                           target="_blank"
                           rel="noopener noreferrer" className='text-blue-500 underline cursor-pointer'>Click here to view file</a>
                       </TableCell>

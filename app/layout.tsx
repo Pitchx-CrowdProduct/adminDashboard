@@ -41,13 +41,17 @@ export default function RootLayout({
                     Review Page Users
                   </NavItem>
                   <NavItem href="/earlyAccess">
-                  <IoMailOutline className='h-4 w-4'/>
+                    <IoMailOutline className='h-4 w-4' />
                     Early Access User Mails
                   </NavItem>
-                  <NavItem href="/investor">
+                  <NavItem href="/manageUsers">
+                    <UsersIcon className="h-4 w-4" />
+                    Manage Users
+                  </NavItem>
+                  {/* <NavItem href="/investor">
                   <CgFileDocument className='h-4 w-4'/>
                     Investor's pitch decks
-                  </NavItem>
+                  </NavItem> */}
                   {/* <NavItem href="https://vercel.com/templates/next.js/admin-dashboard-tailwind-postgres-react-nextjs">
                     <VercelLogo className="h-4 w-4" />
                     Deploy

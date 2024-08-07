@@ -1,11 +1,24 @@
 import mongoose, { Schema, model, Document } from 'mongoose';
 
+<<<<<<< HEAD
+=======
+// Define the FileDetails interface
+interface RFileDetails {
+    score: string;
+    strengths: string[];
+    feedbacks: string[];
+}
+>>>>>>> manageUsers
 
 interface RFile {
   filename: string;
   filehash:string;
   fileurl: string;
+<<<<<<< HEAD
   fileDetails:JSON;
+=======
+  fileDetails:RFileDetails;
+>>>>>>> manageUsers
   uploadDate: Date;
 }
 interface IFile {
@@ -137,8 +150,14 @@ const Users = new Schema<IFileDetail>({
         trim: true
       },
       fileDetails: {
+<<<<<<< HEAD
         type: Schema.Types.Mixed,
         required: true
+=======
+        score: { type: String, required: true },
+        strengths: { type: [String], required: true },
+        feedbacks: { type: [String], required: true }
+>>>>>>> manageUsers
       },
       uploadDate: {
         type: Date,
@@ -164,6 +183,21 @@ const Users = new Schema<IFileDetail>({
   }
 });
 
+<<<<<<< HEAD
 const reviewFileDetail =  mongoose.models.Users || mongoose.model<IFileDetail>('Users', Users);
 
 export default reviewFileDetail;
+=======
+const users =  mongoose.models.Users || mongoose.model<IFileDetail>('Users', Users);
+
+export default users;
+
+export type SelectUser = mongoose.Document & {
+    username: string;
+    email: string;
+    status: string;
+    reviewFiles: RFile[];
+    // investorFiles: IFile[];
+  };
+  
+>>>>>>> manageUsers
