@@ -2,7 +2,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import users  from '../../../models/user';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function PATCH(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'PATCH') {
     const { id, status } = req.body;
 

@@ -1,6 +1,4 @@
-'use client'
 import { getUsers } from '@/lib/db';
-import { Switch } from "../../components/ui/switch"
 import {
     TableHead,
     TableRow,
@@ -9,29 +7,12 @@ import {
     TableBody,
     Table
 } from '@/components/ui/table';
+import UserStatusSwitch from '@/components/UserStatusSwitch';
 
 export default async function IndexPage({ searchParams }: { searchParams: { q: string; offset: string }; }) {
     const search = searchParams.q ?? '';
     const offset = searchParams.offset ?? 0;
     const { users, newOffset } = await getUsers(search, Number(offset));
-
-    const updateUserStatus = async (id:string, status:string) => {
-        try {
-            const res = await fetch('/api/updateUserStatus', {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ id, status })
-            });
-            if (!res.ok) {
-                throw new Error('Failed to update status');
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
 
     return (
         <main className="flex flex-1 flex-col p-4 md:p-6">
@@ -45,32 +26,21 @@ export default async function IndexPage({ searchParams }: { searchParams: { q: s
                         <TableHead className="hidden md:table-cell">Email</TableHead>
                         <TableHead className="hidden md:table-cell">Status</TableHead>
                         <TableHead className="hidden md:table-cell">Change Status</TableHead>
-                        <TableHead></TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {users?.map((user) => (
-                        <TableRow>
+                        <TableRow key={user.id}>
                             <TableCell className="hidden md:table-cell">{user.username}</TableCell>
-                            <TableCell >{user.email}</TableCell>
-                            <TableCell >{user.status}</TableCell>
-                            <TableCell >
-                                <Switch
-                                    id="status-change"
-                                    checked={user.status === "Active"}
-                                    onCheckedChange={(checked) => {
-                                        const newStatus = checked ? "Active" : "Deactive";
-                                        updateUserStatus(user.id, newStatus);
-                                    }}
-                                    className="scale-125"
-                                />
+                            <TableCell>{user.email}</TableCell>
+                            <TableCell>{user.status}</TableCell>
+                            <TableCell>
+                                <UserStatusSwitch userId={user.id} initialStatus={user.status} />
                             </TableCell>
                         </TableRow>
                     ))}
-
                 </TableBody>
             </Table>
-            {/* <UsersTable users={users} prevoffset={Number(offset)} offset={newOffset} /> */}
         </main>
     );
 }
